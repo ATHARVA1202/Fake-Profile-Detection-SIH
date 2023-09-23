@@ -18,28 +18,35 @@ model_path = os.path.join(model_dir, model_filename)
 # Load the XGBoost model
 xgb_classifier = joblib.load(model_path)
 
-# Function to scrape Instagram profile data
+# Function to scrape Instagram profile data and select relevant attributes for display
 def scrape_instagram_profile(username):
     loader = instaloader.Instaloader()
     try:
         profile = instaloader.Profile.from_username(loader.context, username)
-        has_profile_picture = int(bool(profile.profile_pic_url))
-        numerical_chars_in_username = sum(c.isdigit() for c in username)
-        username_length = len(username)
-        ratio_numerical_chars_in_username = numerical_chars_in_username / username_length
-        full_name_tokens = len(profile.full_name.split())
-        numerical_chars_in_full_name = sum(c.isdigit() for c in profile.full_name)
-        full_name_length = len(profile.full_name)
-        ratio_numerical_chars_in_full_name = numerical_chars_in_full_name / full_name_length
-        same_username_and_full_name = int(username.lower() == profile.full_name.lower())
-        bio_length = len(profile.biography)
-        has_external_url = int(bool(profile.external_url))
-        is_private = int(profile.is_private)
-        num_posts = profile.mediacount
+        
+        # Extract the desired attributes for display
+        instagram_data = {
+            "Username": username,
+            "Full Name": profile.full_name,
+            "Biography": profile.biography,
+            "Followers Count": profile.followers,
+            "Following Count": profile.followees,
+            "Has Profile Picture": int(bool(profile.profile_pic_url)),
+            "Numerical Chars in Username": sum(c.isdigit() for c in username) / len(username),
+            "Username Length": len(username),
+            "Ratio Numerical Chars in Username": sum(c.isdigit() for c in username) / len(username),
+            "Full Name Tokens": len(profile.full_name.split()),
+            "Numerical Chars in Full Name": sum(c.isdigit() for c in profile.full_name) / len(profile.full_name),
+            "Full Name Length": len(profile.full_name),
+            "Ratio Numerical Chars in Full Name": sum(c.isdigit() for c in profile.full_name) / len(profile.full_name),
+            "Same Username and Full Name": int(username.lower() == profile.full_name.lower()),
+            "Description Length": len(profile.biography),
+            "External URL": int(bool(profile.external_url)),
+            "Private": int(profile.is_private),
+            "Number of Posts": profile.mediacount,
+        }
 
-        return [has_profile_picture, ratio_numerical_chars_in_username, full_name_tokens,
-                ratio_numerical_chars_in_full_name, same_username_and_full_name, bio_length,
-                has_external_url, is_private, num_posts, profile.followers, profile.followees]
+        return instagram_data
     except instaloader.exceptions.ProfileNotExistsException:
         return None
 
@@ -80,9 +87,9 @@ def predict_manual():
 
         # Convert the prediction to a human-readable conclusion
         if prediction == 0:
-            conclusion = "Not Spam (Option 1)"
+            conclusion = "Not Fake"
         else:
-            conclusion = "Spam (Option 1)"
+            conclusion = "Fake"
 
         # Render the result template with the prediction
         return render_template('result.html', prediction=conclusion)
@@ -105,19 +112,31 @@ def predict_instagram_data():
 
         if scraped_data:
             # Prepare the input data for prediction
-            input_data = [scraped_data]
+            input_data = [[
+                scraped_data["Has Profile Picture"],
+                scraped_data["Numerical Chars in Username"],
+                scraped_data["Full Name Tokens"],
+                scraped_data["Numerical Chars in Full Name"],
+                scraped_data["Same Username and Full Name"],
+                scraped_data["Description Length"],
+                scraped_data["External URL"],
+                scraped_data["Private"],
+                scraped_data["Number of Posts"],
+                scraped_data["Followers Count"],
+                scraped_data["Following Count"],
+            ]]
 
             # Make predictions using the model
             prediction = xgb_classifier.predict(input_data)
 
             # Convert the prediction to a human-readable conclusion
             if prediction == 0:
-                conclusion = "Not Spam (Option 2)"
+                conclusion = "Not Fake"
             else:
-                conclusion = "Spam (Option 2)"
+                conclusion = "Fake"
 
-            # Render the result template with the prediction
-            return render_template('result.html', prediction=conclusion)
+            # Render the result template with the prediction and fetched data
+            return render_template('result_instagram.html', prediction=conclusion, data=scraped_data)
         else:
             # Handle the case where the Instagram profile does not exist
             return render_template('profile_not_found.html')

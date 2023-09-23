@@ -3,15 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enter Instagram Username</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Press+Start+2P&display=swap" rel="stylesheet">    <title>Enter Instagram Username</title>
 </head>
 <body>
-    <h1>Option 2: Enter Instagram Username</h1>
-    <p>Enter an Instagram username to fetch data and make a prediction:</p>
-    <form method="POST" action="/predict_instagram_data"> 
-        <label for="username">Instagram Username:</label>
-        <input type="text" id="username" name="username" required>
-        <button type="submit">Fetch Data and Predict</button>
+    <div class="container">
+        <div class="sections">
+            <nav>
+                <ul>
+                    <a href="{{ url_for('index') }}"><li>Home</li></a>
+                    <a href="{{ url_for('input_username_form') }}"><li>Detector</li></a>
+                    <a href="{{ url_for('input_manual_form') }}"><li>Manual</li></a>
+                </ul>
+            </nav>
+            <div class="everything">
+                <h1 class="options-text">Instagram Fake User Detector</h1>
+                <p class="secondary-text">Enter an Instagram username to fetch data and make a prediction:</p>
+                <form method="POST" action="/predict_instagram_data">
+                <!-- <label for="username">Instagram Username:</label> -->
+                <div class="form">
+                    <input class="form-box" type="text" id="username" name="username" placeholder="username" required>
+                    <button type="submit" class="submit-button">Fetch Data and Predict</button>    
+                </div>
+            </div>
     </form>
+        </div>
+    </div>
 </body>
 </html>
