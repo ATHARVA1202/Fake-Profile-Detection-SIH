@@ -14,7 +14,8 @@
         <div class="sections" id="home">
             <nav>
                 <ul>
-                    <li>option</li>
+                    <a href="{{ url_for('login') }}"><li>Login</li></a>
+                    <a href="{{ url_for('register') }}"><li>Register</li></a>
                     <a href="{{ url_for('input_username_form') }}"><li>Detector</li></a>
                     <a href="{{ url_for('input_manual_form') }}"><li>Manual</li></a>
                 </ul>

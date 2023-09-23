@@ -1,9 +1,111 @@
-from flask import Flask, request, render_template, jsonify
+from flask import Flask, request, render_template, redirect, url_for, flash, jsonify
+from flask_sqlalchemy import SQLAlchemy
 import joblib
 import os
 import instaloader
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
+app.secret_key = 'your_secret_key_here'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db1.db'
+app.config['SQLALCHEMY_BINDS'] = {'db2': 'sqlite:///db2.db'}
+
+db = SQLAlchemy(app)
+
+# Define the Flagged_User model
+class Flagged_User(db.Model):
+    __tablename__ = 'flagged_user'
+    sr_flagged = db.Column(db.Integer, primary_key=True)
+    username_flagged = db.Column(db.String(100), unique=True)
+    count_flagged = db.Column(db.Integer, nullable=False)
+
+# Define the official_user model
+# Define the Official_User model with a different column name for the password
+class Official_User(db.Model):
+    __tablename__ = 'official_user'
+    sr_official = db.Column(db.Integer, primary_key=True)
+    name_official = db.Column(db.String(100), nullable=False)
+    email_official = db.Column(db.String(100), unique=True, nullable=False)
+    hashed_password = db.Column(db.String(256), nullable=False)  # Change 'password' to 'hashed_password'
+
+
+# Create database tables within the application context
+with app.app_context():
+    db.create_all()
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        name = request.form['name']
+        email = request.form['email']
+        password = request.form['password']
+
+        # Check if the email is already registered
+        existing_user = Official_User.query.filter_by(email_official=email).first()
+        if existing_user:
+            flash('Email already registered. Please log in.')
+            return redirect(url_for('login'))
+
+        # Hash the password before storing it in the database
+        hashed_password = generate_password_hash(password, method='sha256')
+
+        # Create a new official user and add it to the database
+        new_user = Official_User(name_official=name, email_official=email, hashed_password=hashed_password)
+        db.session.add(new_user)
+        db.session.commit()
+
+        flash('Registration successful. Please log in.')
+        return redirect(url_for('login'))
+
+    return render_template('register.html')
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+
+        user = Official_User.query.filter_by(email_official=email).first()
+
+        if user and check_password_hash(user.hashed_password, password):  # Use 'hashed_password' here
+            # Log in the user
+            # You can implement session management here
+            flash('Login successful. Welcome!')
+            return redirect(url_for('dashboard'))
+        else:
+            flash('Login failed. Please check your email and password.')
+
+    return render_template('login.html')
+
+
+@app.route('/dashboard')
+def dashboard():
+    # Access the dashboard for logged-in users
+    # You can check the user's session to ensure they are logged in
+    # and retrieve their data from db2 as needed
+    return render_template('dashboard.html')
+
+@app.route('/flag_instagram_account/<username>', methods=['POST'])
+def flag_instagram_account(username):
+    if request.method == 'POST':
+        # Check if the username is already flagged
+        existing_flag = Flagged_User.query.filter_by(username_flagged=username).first()
+        if existing_flag:
+            # If the username is already flagged, increment the count
+            existing_flag.count_flagged += 1
+        else:
+            # If it's not flagged, create a new entry with a count of 1
+            new_flag = Flagged_User(username_flagged=username, count_flagged=1)
+            db.session.add(new_flag)
+
+        db.session.commit()
+
+        flash('Instagram account flagged successfully.')
+        return redirect(url_for('dashboard'))
+
+    # Handle GET requests to this route as needed
+    return redirect(url_for('dashboard'))
+
 
 # Determine the directory of the current script
 current_directory = os.path.dirname(os.path.abspath(__file__))
