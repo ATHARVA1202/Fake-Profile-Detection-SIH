@@ -4,10 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Welcome to the Dashboard</h1>
-    <p>Dashboard content goes here.</p>
-    <a href="/logout">Logout</a>
+    <h1>Dashboard</h1>
+    <h2>Flagged Users</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>SR</th>
+                <th>Username</th>
+                <th>Flag Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in flagged_users %}
+                <tr>
+                    <td>{{ user.sr_flagged }}</td>
+                    <td><a href="{{ url_for('user_details', username=user.username_flagged) }}">{{ user.username_flagged }}</a></td>
+                    <td>{{ user.count_flagged }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <img src="{{ url_for('static', filename='pie_chart.png') }}" alt="Pie Chart">
+
 </body>
 </html>

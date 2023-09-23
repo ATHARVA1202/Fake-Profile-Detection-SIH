@@ -10,31 +10,35 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Result</h1>
-    <p class="result-text"><strong>Prediction:</strong> {{ prediction }}</p>
-    <h2>Instagram Profile Data</h2>
-    <ul>
-        <li><strong>Username:</strong> {{ data['Username'] }}</li>
-        <li><strong>Full Name:</strong> {{ data['Full Name'] }}</li>
-        <li><strong>Biography:</strong> {{ data['Biography'] }}</li>
-        <li><strong>Followers Count:</strong> {{ data['Followers Count'] }}</li>
-        <li><strong>Following Count:</strong> {{ data['Following Count'] }}</li>
-        <li><strong>Has Profile Picture:</strong> {{ data['Has Profile Picture'] }}</li>
-        <!-- <li><strong>Numerical Chars in Username:</strong> {{ data['Numerical Chars in Username'] }}</li> -->
-        <li><strong>Username Length:</strong> {{ data['Username Length'] }}</li>
-        <li><strong>Ratio Numerical Chars in Username:</strong> {{ data['Ratio Numerical Chars in Username'] }}</li>
-        <li><strong>Full Name Tokens:</strong> {{ data['Full Name Tokens'] }}</li>
-        <li><strong>Numerical Chars in Full Name:</strong> {{ data['Numerical Chars in Full Name'] }}</li>
-        <li><strong>Full Name Length:</strong> {{ data['Full Name Length'] }}</li>
-        <!-- <li><strong>Ratio Numerical Chars in Full Name:</strong> {{ data['Ratio Numerical Chars in Full Name'] }}</li> -->
-        <li><strong>Same Username and Full Name:</strong> {{ data['Same Username and Full Name'] }}</li>
-        <li><strong>Description Length:</strong> {{ data['Description Length'] }}</li>
-        <li><strong>External URL:</strong> {{ data['External URL'] }}</li>
-        <li><strong>Private:</strong> {{ data['Private'] }}</li>
-        <li><strong>Number of Posts:</strong> {{ data['Number of Posts'] }}</li>
-    </ul>
-    <form method="POST" action="{{ url_for('flag_instagram_account', username=data['Username']) }}">
-        <button type="submit">Flag Instagram Account</button>
-    </form>
+    <div class="container">
+        <div class="sections">
+            <h1>Result</h1>
+            <h3 class="result-text"><strong>Prediction:</strong> {{ prediction }}</h3>
+            <h2>Instagram Profile Data</h2>
+            <ul>
+                <li><strong>Username:</strong> {{ data['Username'] }}</li>
+                <li><strong>Full Name:</strong> {{ data['Full Name'] }}</li>
+                <li><strong>Biography:</strong> {{ data['Biography'] }}</li>
+                <li><strong>Followers Count:</strong> {{ data['Followers Count'] }}</li>
+                <li><strong>Following Count:</strong> {{ data['Following Count'] }}</li>
+                <li><strong>Has Profile Picture:</strong> {{ data['Has Profile Picture'] }}</li>
+                <!-- <li><strong>Numerical Chars in Username:</strong> {{ data['Numerical Chars in Username'] }}</li> -->
+                <li><strong>Username Length:</strong> {{ data['Username Length'] }}</li>
+                <li><strong>Ratio Numerical Chars in Username:</strong> {{ data['Ratio Numerical Chars in Username'] }}</li>
+                <li><strong>Full Name Tokens:</strong> {{ data['Full Name Tokens'] }}</li>
+                <li><strong>Numerical Chars in Full Name:</strong> {{ data['Numerical Chars in Full Name'] }}</li>
+                <li><strong>Full Name Length:</strong> {{ data['Full Name Length'] }}</li>
+                <!-- <li><strong>Ratio Numerical Chars in Full Name:</strong> {{ data['Ratio Numerical Chars in Full Name'] }}</li> -->
+                <li><strong>Same Username and Full Name:</strong> {{ data['Same Username and Full Name'] }}</li>
+                <li><strong>Description Length:</strong> {{ data['Description Length'] }}</li>
+                <li><strong>External URL:</strong> {{ data['External URL'] }}</li>
+                <li><strong>Private:</strong> {{ data['Private'] }}</li>
+                <li><strong>Number of Posts:</strong> {{ data['Number of Posts'] }}</li>
+            </ul>
+            <form method="POST" action="{{ url_for('flag_instagram_account', username=data['Username']) }}">
+                <button class="flag-button" type="submit">Flag Account</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

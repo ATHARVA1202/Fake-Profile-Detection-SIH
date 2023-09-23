@@ -4,6 +4,12 @@ import joblib
 import os
 import instaloader
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask import render_template
+import matplotlib.pyplot as plt
+from io import BytesIO
+import base64
+from datetime import datetime
+
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'
@@ -18,6 +24,7 @@ class Flagged_User(db.Model):
     sr_flagged = db.Column(db.Integer, primary_key=True)
     username_flagged = db.Column(db.String(100), unique=True)
     count_flagged = db.Column(db.Integer, nullable=False)
+    timestamp_flagged = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
 # Define the official_user model
 # Define the Official_User model with a different column name for the password
@@ -77,13 +84,37 @@ def login():
 
     return render_template('login.html')
 
-
 @app.route('/dashboard')
 def dashboard():
     # Access the dashboard for logged-in users
     # You can check the user's session to ensure they are logged in
     # and retrieve their data from db2 as needed
-    return render_template('dashboard.html')
+
+    # Query the database to fetch data for the pie chart
+    flagged_users = Flagged_User.query.all()
+    labels = [user.username_flagged for user in flagged_users]
+    counts = [user.count_flagged for user in flagged_users]
+
+    # Create a pie chart
+    plt.figure(figsize=(8, 8))
+    plt.pie(counts, labels=labels, autopct='%1.1f%%', startangle=140)
+    plt.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+    
+    # Save the pie chart as an image
+    pie_chart_image_path = 'static/pie_chart.png'
+    plt.savefig(pie_chart_image_path, bbox_inches='tight', pad_inches=0.1)
+    
+    return render_template('dashboard.html', pie_chart_image_path=pie_chart_image_path)
+
+@app.route('/user_details/<username>')
+def user_details(username):
+    # Fetch user details for the given username (e.g., from the database)
+    # Replace this with your actual data retrieval logic
+    user = get_user_details(username)  # Implement this function
+
+    # Render a template to display the user details
+    return render_template('user_details.html', user=user)
+
 
 @app.route('/flag_instagram_account/<username>', methods=['POST'])
 def flag_instagram_account(username):

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Add your head content here -->
+</head>
+<body>
+    <h1>User Details</h1>
+    <h2>{{ user.username }}</h2>
+    
+    <h3>User Information</h3>
+    <ul>
+        <li><strong>Full Name:</strong> {{ user.full_name }}</li>
+        <li><strong>Email:</strong> {{ user.email }}</li>
+        <li><strong>Biography:</strong> {{ user.biography }}</li>
+        <li><strong>Followers Count:</strong> {{ user.followers_count }}</li>
+        <li><strong>Following Count:</strong> {{ user.following_count }}</li>
+        <li><strong>Has Profile Picture:</strong> {{ user.has_profile_picture }}</li>
+        <li><strong>Numerical Chars in Username:</strong> {{ user.numerical_chars_in_username }}</li>
+        <li><strong>Username Length:</strong> {{ user.username_length }}</li>
+        <li><strong>Ratio Numerical Chars in Username:</strong> {{ user.ratio_numerical_chars_in_username }}</li>
+        <li><strong>Full Name Tokens:</strong> {{ user.full_name_tokens }}</li>
+        <li><strong>Numerical Chars in Full Name:</strong> {{ user.numerical_chars_in_full_name }}</li>
+        <li><strong>Full Name Length:</strong> {{ user.full_name_length }}</li>
+        <li><strong>Ratio Numerical Chars in Full Name:</strong> {{ user.ratio_numerical_chars_in_full_name }}</li>
+        <li><strong>Same Username and Full Name:</strong> {{ user.same_username_and_full_name }}</li>
+        <li><strong>Description Length:</strong> {{ user.description_length }}</li>
+        <li><strong>External URL:</strong> {{ user.external_url }}</li>
+        <li><strong>Private:</strong> {{ user.is_private }}</li>
+        <li><strong>Number of Posts:</strong> {{ user.number_of_posts }}</li>
+    </ul>
+</body>
+</html>

@@ -3,7 +3,14 @@
     padding: 0;
     font-family: 'Poppins', sans-serif;
     box-sizing: border-box;
+    color:aliceblue;
 }
+
+::placeholder {
+    color: white;
+    opacity: 1; /* Firefox */
+  }
+  
 h1,h3{
     font-family: 'Press Start 2P', cursive;
     color: rgb(0, 255, 0);
@@ -168,7 +175,7 @@ nav ul li:hover{
     border-radius: 3px;
     padding: 9px 12px;
     line-height: 1.4;
-    color: rgb(0, 0, 0);
+    color: white;
     font-size: 16px;
     font-weight: 400;
     max-width: 200px;
@@ -180,6 +187,7 @@ nav ul li:hover{
 }
 
 .form-box:focus{
+    color: black;
     background: #fff;
     outline: 0;
     box-shadow: 0 0 0 0 #fff inset, rgb(0, 255, 0) 0 0 0 3px;
@@ -203,18 +211,20 @@ label{
     border-radius: 3px;
     padding: 9px 12px;
     line-height: 1.4;
-    color: rgb(0, 0, 0);
+    /* color: rgb(0, 0, 0); */
+    color: white;
     font-size: 16px;
     font-weight: 400;
     max-width: 200px;
     transition: all .2s ease;
     /* margin: 1%; */
 }
-.form-box-smaller:hover{
+.form-box-smaller:hover{    
     box-shadow: 0 0 0 0 #fff inset, rgb(0, 255, 0) 0 0 0 2px;
 }
 
 .form-box-smaller:focus{
+    color: black;
     background: #fff;
     outline: 0;
     box-shadow: 0 0 0 0 #fff inset, rgb(0, 255, 0) 0 0 0 3px;
@@ -237,6 +247,44 @@ label{
     display: flex;
     justify-content: center;
     flex-direction: column;
+}
+
+.registeration{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+p{
+    margin: 2.5%;
+}
+
+.flag-button{
+    display: inline-block;
+    outline: none;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1;
+    border-radius: 500px;
+    transition-property: background-color,border-color,color,box-shadow,filter;
+    transition-duration: .3s;
+    border: 1px solid transparent;
+    letter-spacing: 2px;
+    min-width: 160px;
+    text-transform: uppercase;
+    white-space: normal;
+    font-weight: 700;
+    text-align: center;
+    /* padding: 17px 48px; */
+    color: #fff;
+    background-color: rgba(255, 2, 2, 0.697);
+    height: 48px;
+    margin: 1%;
+}
+.flag-button:hover{
+    transform: scale(1.02);
+    background-color: #700000;
+    transition: 0.2s ease;
 }
 
 @keyframes gradient {
