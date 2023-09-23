@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>XGBoost Model Prediction</title>
+</head>
+<body>
+    <h1>XGBoost Model Prediction</h1>
+    
+    <form method="POST" action="/predict">
+        <label for="profile_pic">Profile Picture (0 or 1):</label>
+        <input type="number" name="profile_pic" required><br><br>
+        
+        <label for="nums_length_username">Numbers/Length of Username:</label>
+        <input type="decimal" name="nums_length_username" required><br><br>
+        
+        <label for="fullname_words">Fullname Words:</label>
+        <input type="number" name="fullname_words" required><br><br>
+        
+        <label for="nums_length_fullname">Numbers/Length of Fullname:</label>
+        <input type="number" name="nums_length_fullname" required><br><br>
+        
+        <label for="name_equals_username">Name Equals Username (0 or 1):</label>
+        <input type="number" name="name_equals_username" required><br><br>
+        
+        <label for="description_length">Description Length:</label>
+        <input type="number" name="description_length" required><br><br>
+        
+        <label for="external_url">External URL (0 or 1):</label>
+        <input type="number" name="external_url" required><br><br>
+        
+        <label for="private">Private (0 or 1):</label>
+        <input type="number" name="private" required><br><br>
+        
+        <label for="num_posts">Number of Posts:</label>
+        <input type="number" name="num_posts" required><br><br>
+        
+        <label for="num_followers">Number of Followers:</label>
+        <input type="number" name="num_followers" required><br><br>
+        
+        <label for="num_follows">Number of Follows:</label>
+        <input type="number" name="num_follows" required><br><br>
+
+        <input type="submit" value="Predict">
+    </form>
+</body>
+</html>
