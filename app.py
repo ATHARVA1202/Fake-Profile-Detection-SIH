@@ -6,9 +6,13 @@ import instaloader
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import render_template
 import matplotlib.pyplot as plt
-from io import BytesIO
+from io import StringIO, BytesIO
 import base64
 from datetime import datetime
+import plotly.express as px
+from plotly.offline import plot
+import plotly.graph_objs as go
+
 
 
 app = Flask(__name__)
@@ -84,6 +88,10 @@ def login():
 
     return render_template('login.html')
 
+# Import necessary libraries
+import matplotlib.dates as mdates
+
+
 @app.route('/dashboard')
 def dashboard():
     # Access the dashboard for logged-in users
@@ -99,12 +107,51 @@ def dashboard():
     plt.figure(figsize=(8, 8))
     plt.pie(counts, labels=labels, autopct='%1.1f%%', startangle=140)
     plt.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
-    
+
     # Save the pie chart as an image
     pie_chart_image_path = 'static/pie_chart.png'
     plt.savefig(pie_chart_image_path, bbox_inches='tight', pad_inches=0.1)
+
+    # Fetch data for the bar chart (date and time of flagged users)
+    timestamps = [user.timestamp_flagged for user in flagged_users]
+    flag_counts = [user.count_flagged for user in flagged_users]
+
+    # Create a Plotly bar chart
+    bar_chart = go.Bar(
+        x=timestamps,
+        y=flag_counts,
+        text=flag_counts,
+        textposition='auto',
+        marker=dict(color='blue'),  # You can customize the bar color
+    )
+
+    layout = go.Layout(
+        title='Flagged Users Over Time',
+        xaxis=dict(title='Timestamp'),
+        yaxis=dict(title='Flag Counts'),
+    )
+
+    fig = go.Figure(data=[bar_chart], layout=layout)
+
+    # Save the Plotly bar chart as an HTML file
+    bar_chart_html_path = 'static/bar_chart.html'
+    plot(fig, filename=bar_chart_html_path, auto_open=False)
+
+    # Pass the flagged user data and chart HTML path to the template
+    return render_template('dashboard.html', pie_chart_image_path='static/pie_chart.png', bar_chart_html_path=bar_chart_html_path, flagged_users=flagged_users)
+
+@app.route('/fetch_instaloader_data/<username>')
+def fetch_instaloader_data(username):
+    # Your code to fetch Instaloader data goes here
+    instaloader_data = scrape_instagram_profile(username)
     
-    return render_template('dashboard.html', pie_chart_image_path=pie_chart_image_path)
+    if instaloader_data:
+        # Render the template with the Instaloader data
+        return render_template('instaloader_data.html', data=instaloader_data)
+    else:
+        # Handle the case where the Instagram profile does not exist
+        # return render_template('profile_not_found.html')
+        return render_template('profile_not_found.html')
 
 @app.route('/user_details/<username>')
 def user_details(username):
@@ -132,10 +179,10 @@ def flag_instagram_account(username):
         db.session.commit()
 
         flash('Instagram account flagged successfully.')
-        return redirect(url_for('dashboard'))
+        return redirect(url_for('index'))
 
     # Handle GET requests to this route as needed
-    return redirect(url_for('dashboard'))
+    return redirect(url_for('index'))
 
 
 # Determine the directory of the current script

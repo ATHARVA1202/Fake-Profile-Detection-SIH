@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instaloader Data</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1>Instaloader Data for {{ data.Username }}</h1>
+    <table class="table">
+        <tbody>
+            <tr>
+                <td>Full Name:</td>
+                <td>{{ data['Full Name'] }}</td>
+            </tr>
+            <tr>
+                <td>Biography:</td>
+                <td>{{ data.Biography }}</td>
+            </tr>
+            <tr>
+                <td>Followers Count:</td>
+                <td>{{ data['Followers Count'] }}</td>
+            </tr>
+            <tr>
+                <td>Following Count:</td>
+                <td>{{ data['Following Count'] }}</td>
+            </tr>
+            <tr>
+                <td>Has Profile Picture:</td>
+                <td>{{ data['Has Profile Picture'] }}</td>
+            </tr>
+            <tr>
+                <td>Numerical Chars in Username:</td>
+                <td>{{ data['Numerical Chars in Username'] }}</td>
+            </tr>
+            <tr>
+                <td>Username Length:</td>
+                <td>{{ data['Username Length'] }}</td>
+            </tr>
+            <tr>
+                <td>Ratio Numerical Chars in Username:</td>
+                <td>{{ data['Ratio Numerical Chars in Username'] }}</td>
+            </tr>
+            <tr>
+                <td>Full Name Tokens:</td>
+                <td>{{ data['Full Name Tokens'] }}</td>
+            </tr>
+            <tr>
+                <td>Numerical Chars in Full Name:</td>
+                <td>{{ data['Numerical Chars in Full Name'] }}</td>
+            </tr>
+            <tr>
+                <td>Full Name Length:</td>
+                <td>{{ data['Full Name Length'] }}</td>
+            </tr>
+            <tr>
+                <td>Ratio Numerical Chars in Full Name:</td>
+                <td>{{ data['Ratio Numerical Chars in Full Name'] }}</td>
+            </tr>
+            <tr>
+                <td>Same Username and Full Name:</td>
+                <td>{{ data['Same Username and Full Name'] }}</td>
+            </tr>
+            <tr>
+                <td>Description Length:</td>
+                <td>{{ data['Description Length'] }}</td>
+            </tr>
+            <tr>
+                <td>External URL:</td>
+                <td>{{ data['External URL'] }}</td>
+            </tr>
+            <tr>
+                <td>Private:</td>
+                <td>{{ data.Private }}</td>
+            </tr>
+            <tr>
+                <td>Number of Posts:</td>
+                <td>{{ data['Number of Posts'] }}</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
