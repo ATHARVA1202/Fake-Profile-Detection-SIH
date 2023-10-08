@@ -32,6 +32,85 @@
         <img class="chart" src="{{ pie_chart_image_path }}" alt="Pie Chart">
         <iframe class="chart" src="{{ bar_chart_html_path }}" width="800" height="400"></iframe>
         </div>
+        <div id="loading-screen" class="loading">
+            <div class="spinner"></div>
+            <p>Loading...</p>
+        </div>        
+        <div class="flagged_table">
+            <h1>Instaloader Data for {{ data.Username }}</h1>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>Full Name:</td>
+                        <td>{{ data['Full Name'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Biography:</td>
+                        <td>{{ data.Biography }}</td>
+                    </tr>
+                    <tr>
+                        <td>Followers Count:</td>
+                        <td>{{ data['Followers Count'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Following Count:</td>
+                        <td>{{ data['Following Count'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Has Profile Picture:</td>
+                        <td>{{ data['Has Profile Picture'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Numerical Chars in Username:</td>
+                        <td>{{ data['Numerical Chars in Username'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Username Length:</td>
+                        <td>{{ data['Username Length'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Ratio Numerical Chars in Username:</td>
+                        <td>{{ data['Ratio Numerical Chars in Username'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Full Name Tokens:</td>
+                        <td>{{ data['Full Name Tokens'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Numerical Chars in Full Name:</td>
+                        <td>{{ data['Numerical Chars in Full Name'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Full Name Length:</td>
+                        <td>{{ data['Full Name Length'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Ratio Numerical Chars in Full Name:</td>
+                        <td>{{ data['Ratio Numerical Chars in Full Name'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Same Username and Full Name:</td>
+                        <td>{{ data['Same Username and Full Name'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Description Length:</td>
+                        <td>{{ data['Description Length'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>External URL:</td>
+                        <td>{{ data['External URL'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Private:</td>
+                        <td>{{ data.Private }}</td>
+                    </tr>
+                    <tr>
+                        <td>Number of Posts:</td>
+                        <td>{{ data['Number of Posts'] }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <table class="table">
             <thead>
                 <tr>
@@ -43,7 +122,9 @@
             <tbody>
                 {% for user in flagged_users %}
                     <tr>
-                        <td><a href="{{ url_for('fetch_instaloader_data', username=user.username_flagged) }}">{{ user.username_flagged }}</a></td>
+                        <!-- <td><a href="{{ url_for('fetch_instaloader_data', username=user.username_flagged) }}">{{ user.username_flagged }}</a></td> -->
+                        <!-- <td><a href="{{ url_for('fetch_instaloader_data', username=user.username_flagged) }}?username={{ user.username_flagged }}">{{ user.username_flagged }}</a></td> -->
+                        <td><a href="javascript:void(0);" class="username_flagged" data-username="{{ user.username_flagged }}">{{ user.username_flagged }}</a></td>
                         <td>{{ user.count_flagged }}</td>
                         <td>{{ user.timestamp_flagged }}</td>
                     </tr>
@@ -51,5 +132,116 @@
             </tbody>        
         </table>
     </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            // Function to fetch user details and update the dashboard
+            function fetchUserDetails(username) {
+                // Make an AJAX request to fetch user details based on the clicked username
+                const loadingScreen = document.getElementById('loading-screen');
+                loadingScreen.style.display = 'flex';
+                fetch(`/fetch_instaloader_data/${username}`)
+                    .then(response => response.json())
+                    // Inside the fetchUserDetails function
+            .then(data => {
+                // Update the dashboard with the fetched data
+                const flaggedTable = document.querySelector('.flagged_table');
+                flaggedTable.innerHTML = ''; // Clear the existing content
+
+                const userDetails = document.createElement('div');
+                userDetails.innerHTML = `
+                    <h1>Instaloader Data for ${data.Username}</h1>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td>Biography:</td>
+                                <td>${data.Biography}</td>
+                            </tr>
+                            <tr>
+                                <td>Followers Count:</td>
+                                <td>${data['Followers Count']}</td>
+                            </tr>
+                            <tr>
+                                <td>Following Count:</td>
+                                <td>${data['Following Count']}</td>
+                            </tr>
+                            <tr>
+                                <td>Has Profile Picture:</td>
+                                <td>${data['Has Profile Picture']}</td>
+                            </tr>
+                            <tr>
+                                <td>Numerical Chars in Username:</td>
+                                <td>${data['Numerical Chars in Username']}</td>
+                            </tr>
+                            <tr>
+                                <td>Username Length:</td>
+                                <td>${data['Username Length']}</td>
+                            </tr>
+                            <tr>
+                                <td>Ratio Numerical Chars in Username:</td>
+                                <td>${data['Ratio Numerical Chars in Username']}</td>
+                            </tr>
+                            <tr>
+                                <td>Full Name Tokens:</td>
+                                <td>${data['Full Name Tokens']}</td>
+                            </tr>
+                            <tr>
+                                <td>Numerical Chars in Full Name:</td>
+                                <td>${data['Numerical Chars in Full Name']}</td>
+                            </tr>
+                            <tr>
+                                <td>Full Name Length:</td>
+                                <td>${data['Full Name Length']}</td>
+                            </tr>
+                            <tr>
+                                <td>Ratio Numerical Chars in Full Name:</td>
+                                <td>${data['Ratio Numerical Chars in Full Name']}</td>
+                            </tr>
+                            <tr>
+                                <td>Same Username and Full Name:</td>
+                                <td>${data['Same Username and Full Name']}</td>
+                            </tr>
+                            <tr>
+                                <td>Description Length:</td>
+                                <td>${data['Description Length']}</td>
+                            </tr>
+                            <tr>
+                                <td>External URL:</td>
+                                <td>${data['External URL']}</td>
+                            </tr>
+                            <tr>
+                                <td>Private:</td>
+                                <td>${data.Private}</td>
+                            </tr>
+                            <tr>
+                                <td>Number of Posts:</td>
+                                <td>${data['Number of Posts']}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                `;
+                flaggedTable.appendChild(userDetails);
+                loadingScreen.style.display = 'none';
+            })
+
+                    .catch(error => {
+                        console.error('Error fetching user details:', error);
+                        loadingScreen.style.display = 'none';
+                    });
+            }
+        
+            // Attach a click event listener to flagged usernames
+            document.querySelectorAll('.username_flagged').forEach(link => {
+                link.addEventListener('click', function () {
+                    const username = this.getAttribute('data-username');
+                    document.querySelector(".flagged_table").style.visibility = "visible";
+                    document.querySelector(".flagged_table").style.position = "relative";
+
+                    fetchUserDetails(username);
+                });
+            });
+        </script>
+        
+        
+        
 </body>
 </html>

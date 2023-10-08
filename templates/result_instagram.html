@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
     <div class="container">
@@ -35,10 +36,28 @@
                 <li><strong>Private:</strong> {{ data['Private'] }}</li>
                 <li><strong>Number of Posts:</strong> {{ data['Number of Posts'] }}</li>
             </ul>
-            <form method="POST" action="{{ url_for('flag_instagram_account', username=data['Username']) }}">
-                <button class="flag-button" type="submit">Flag Account</button>
-            </form>
+            <form id="flag-form" method="POST" action="{{ url_for('flag_instagram_account', username=data['Username']) }}">
+                <!-- {{message}} -->
+                <div class="g-recaptcha" data-sitekey="6LeS9oUoAAAAAE3h8nM5RXe5X-wlgdt41DRIUpaE"></div>
+                <br/>          
+                <button class="flag-button" type="submit" value="Submit" onclick="return checkRecaptcha()">Flag Account</button>
+            </form>            
         </div>
-    </div>
+        <script>
+            function checkRecaptcha() {
+                var recaptchaResponse = grecaptcha.getResponse();
+                
+                // Check if reCAPTCHA has been successfully completed
+                if (recaptchaResponse.length === 0) {
+                    // If reCAPTCHA is not completed, show an error message or alert
+                    alert('Please complete the reCAPTCHA before submitting the form.');
+                    return false; // Prevent the form from being submitted
+                }
+                
+                // If reCAPTCHA is completed, allow the form to be submitted
+                return true;
+            }
+        </script>
+        </div>
 </body>
 </html>

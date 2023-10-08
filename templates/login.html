@@ -13,7 +13,7 @@
     <div class="container">
         <div class="sections">
             <h1 class="options-text">Login</h1>
-    {% with messages = get_flashed_messages() %}
+    <!-- {% with messages = get_flashed_messages() %}
         {% if messages %}
             <ul class="flash-messages">
                 {% for message in messages %}
@@ -21,7 +21,7 @@
                 {% endfor %}
             </ul>
         {% endif %}
-    {% endwith %}
+    {% endwith %} -->
     <form class="registeration" method="POST" action="/login">
         <label for="email">Email:</label>
         <input class="form-box-smaller" type="email" name="email" required>

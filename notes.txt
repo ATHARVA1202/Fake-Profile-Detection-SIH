@@ -1,0 +1,110 @@
+'profile pic', 'nums/length username', 'fullname words',
+       'nums/length fullname', 'name==username', 'description length',
+       'external URL', 'private', '#posts', '#followers', '#follows'
+
+
+/* CSS HEX */
+--cadet-gray: #99A5B9ff;
+--lavender-web: #D6E6FDff;
+--white: #FBFBFEff;
+--picton-blue: #16A6E9ff;
+--oxford-blue: #0F172Aff;
+
+
+
+webcam_access
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Webcam Access Page</title>
+</head>
+<body>
+    <div class="container">
+        <div class="sections">
+            <h1>Face Authentication</h1>
+            <!-- Display the webcam feed as an image -->
+            <img id="webcam" src="{{ url_for('video_feed') }}" width="640" height="480" style="border: 2px solid black;">
+            <!-- Add a button to start the face detection process -->
+            <button id="start-detection">Authenticate</button>
+        </div>
+    </div>
+
+    <!-- JavaScript code to handle the button click and authentication -->
+    <script>
+        const startDetectionButton = document.getElementById('start-detection');
+        startDetectionButton.addEventListener('click', async () => {
+        alert('Button clicked'); // Add this line
+            try {
+                // Send a POST request to initiate authentication
+                const response = await fetch('/check_known_face', {
+                    method: 'POST',
+                });
+
+                if (response.ok) {
+                    // Redirect to the dashboard on successful authentication
+                    alert('Authentication successful'); // Add this line
+                    window.location.href = '/dashboard';
+                } else {
+                    console.error('Authentication failed.');
+                }
+            } catch (error) {
+                console.error('Error starting authentication:', error);
+            }
+        });
+
+    </script>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Webcam Access Page</title>
+</head>
+<body>
+    <div class="container">
+        <div class="sections">
+            <h1>Face Authentication</h1>
+            <!-- Display the webcam feed as an image -->
+            <img id="webcam" src="{{ url_for('video_feed') }}" width="640" height="480" style="border: 2px solid black;">
+            <!-- Add a button to start the face detection process -->
+            <button id="start-detection">Authenticate</button>
+        </div>
+    </div>
+
+    <!-- JavaScript code to handle the button click and authentication -->
+    <script>
+        const startDetectionButton = document.getElementById('start-detection');
+        startDetectionButton.addEventListener('click', async () => {
+            try {
+                // Send a POST request to initiate authentication
+                const response = await fetch('/check_known_face', {
+                    method: 'POST',
+                });
+
+                if (response.ok) {
+                    // Redirect to the dashboard on successful authentication
+                    window.location.href = '/dashboard';
+                } else {
+                    console.error('Authentication failed.');
+                }
+            } catch (error) {
+                console.error('Error starting authentication:', error);
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+6LeS9oUoAAAAAF5pdXLHk8FdoUoa9qc8UV8UvQvx
+
+Utilization of XGBoost Algorithm to enhance the accuracy and effectiveness of the fake profile detection system, showcasing our commitment to cutting-edge technology for detecting fake profiles.

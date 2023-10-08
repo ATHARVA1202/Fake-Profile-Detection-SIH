@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Face Detection Webcam</title>
+</head>
+<body>
+    <h1>Webcam Feed</h1>
+    <div>
+        <img src="{{ url_for('video_feed') }}" style="max-width: 100%;" />
+    </div>
+    <h2>Face Detection Status: <span id="detection_status">Loading...</span></h2>
+
+    <script>
+        // JavaScript code to update the detection status dynamically
+        var source = new EventSource("/status_stream");
+        var statusElement = document.getElementById("detection_status");
+
+        source.onmessage = function (event) {
+            statusElement.textContent = event.data;
+        };
+    </script>
+</body>
+</html>

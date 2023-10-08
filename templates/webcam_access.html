@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Webcam Access Page</title>
+</head>
+<body>
+    <div class="container">
+        <div class="sections">
+            <h1>Face Authentication</h1>
+            <!-- Display the webcam feed as an image -->
+            <img id="webcam" src="{{ url_for('video_feed') }}" width="640" height="480" style="border: 2px solid black;">
+            <!-- Add a button to start the face detection process -->
+            <button id="start-detection">Authenticate</button>
+        </div>
+    </div>
+
+    <!-- JavaScript code to handle the button click and authentication -->
+    <script>
+        const startDetectionButton = document.getElementById('start-detection');
+        const webcamImage = document.getElementById('webcam');
+        
+        startDetectionButton.addEventListener('click', async () => {
+            try {
+                // Send a POST request to initiate authentication
+                const response = await fetch('/check_known_face', {
+                    method: 'POST',
+                });
+
+                if (response.ok) {
+                    // Redirect to the dashboard on successful authentication
+                    window.location.href = '/dashboard';
+                } else {
+                    console.error('Authentication failed.');
+                }
+            } catch (error) {
+                console.error('Error starting authentication:', error);
+            }
+        });
+    </script>
+</body>
+</html>
