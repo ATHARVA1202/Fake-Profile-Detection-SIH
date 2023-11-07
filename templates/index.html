@@ -12,24 +12,58 @@
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
         />
+        <!-- Bootstrap -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        
         <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+        
     </head>
     <body>
         <div class="container">
             <div class="sections" id="home">
-                <nav>
+                <!-- <nav style="background-color: aliceblue; z-index: 10;">
                     <ul>
                         <a href="{{ url_for('login') }}"><li>Login</li></a>
                         <a href="{{ url_for('register') }}"><li>Register</li></a>
                         <a href="{{ url_for('input_username_form') }}"><li>Detector</li></a>
                         <a href="{{ url_for('input_manual_form') }}"><li>Manual</li></a>
                     </ul>
-                </nav>
+                </nav> -->
+                <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark" style="position: fixed; top: 0; z-index: 10; width: 100%;">
+                    <div class="container-fluid">
+                      <a class="navbar-brand" href="#">
+                        <span>Secure Social</span></a>
+                      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                      </button>
+                      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                          <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="#" style="margin-left: 840px; margin-right: 10px;">Home</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="#" style="margin-left: 10px; margin-right: 10px;">About</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="#" style="margin-left: 10px; margin-right: 10px;">Services</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="#" style="margin-left: 10px; margin-right: 10px;">Why Us</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('login') }}" style="margin-left: 10px; margin-right: 10px;">Login/Register</a>
+                        </ul>  
+                      </div>
+                    </div>
+                  </nav>
                 <div class="home">
                     <div class="home-text">
                         <h1 id="main-text">Secure Social</h1>
-                        <h3 class="sub-text">Spam Profile Detector</h3>
-                        <a href="#features"><button class="getStarted" type="submit">Get To Know Us</button></a>
+                        <h3 class="sub-text">Fake Profile Detector</h3>
+                        <a href="{{ url_for('input_username_form') }}"><button class="getStarted" type="submit">Report a Fake Profile</button></a>
+                        <!-- <a href="#features"><button class="getStarted" type="submit">Get To Know Us</button></a> -->
+
                     </div>
                     <div class="swiper" id="swiper1">
                         <!-- Additional required wrapper -->
@@ -91,12 +125,16 @@
                                         <div id="typed-strings">
                                             <p class="swiper-subtext">Utilization of XGBoost Algorithm to enhance the accuracy and effectiveness of the fake profile detection system, showcasing our commitment to cutting-edge technology for detecting fake profiles.</p>
                                             </div>
-                                            <span id="typed"></span>                              
+                                            <span id="typed"></span>  
+                                            <a href="{{ url_for('input_manual_form') }}" style="margin-top: 10px;"><button class="getStarted" type="submit" style="background-color: #16A6E9ff; margin-top: 30px;">Try for yourself</button></a>
+                            
                                     </div>
                                 </div>
-                                <img class="swiper-image" src="{{url_for('static',filename='slider-img3.png')}}" alt="fake-profile-image">
+                                <img class="swiper-image" src="{{url_for('static',filename='slider-img3.png')}}" alt="fake-profile-image" style="width: 600px;">
                             </div>
                         </div>
+
+                        
                     <!-- ... -->
                     </div>
                     <!-- If we need navigation buttons -->
@@ -107,9 +145,9 @@
                 <!-- Add more content as needed -->
             </div>
             
-            <div class="sections" id="services">
-                <h1 id="services-header">Our Services</h1>
-                <div class="services">
+            <!-- <div class="sections" id="services"> -->
+                <!-- <h1 id="services-header">Our Services</h1> -->
+                <!-- <div class="services">
                     <div class="services-elements" id="flagging">
                         <svg style="height: 80px;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M3 3v1.5M3 21v-6m0 0l2.77-.693a9 9 0 016.208.682l.108.054a9 9 0 006.086.71l3.114-.732a48.524 48.524 0 01-.005-10.499l-3.11.732a9 9 0 01-6.085-.711l-.108-.054a9 9 0 00-6.208-.682L3 4.5M3 15V4.5" />
@@ -138,6 +176,101 @@
                             <p>Our innovative technology, now at your fingertips. Experience our service with a convenient Chrome extension.</p>    
                         </div>
                     </div>
+                </div> -->
+            <!-- </div> -->
+
+            
+
+            <div class="container sections" id="services">
+                <h1 id="services-header">Our Services</h1><br><br><br><br><br><br>
+                <div class="row" style="padding: 5px;">
+                    <div class="col-md-4">
+                        <div class="table-div">
+                            <div class="services-elements" id="flagging">
+                                <svg style="height: 80px;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 3v1.5M3 21v-6m0 0l2.77-.693a9 9 0 016.208.682l.108.054a9 9 0 006.086.71l3.114-.732a48.524 48.524 0 01-.005-10.499l-3.11.732a9 9 0 01-6.085-.711l-.108-.054a9 9 0 00-6.208-.682L3 4.5M3 15V4.5" />
+                                </svg>
+                                <div class="services-text">
+                                    <h2>Reporting Fake Accounts</h2>
+                                    <p>If you encounter a profile that raises suspicions, our user-friendly reporting feature enables you to swiftly report it</p>    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="table-div"><div class="services-elements" id="data-visualization">
+                            <svg style="height:80px" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z" />
+                            </svg>
+                            <div class="services-text">
+                                <h2>Data Visualization</h2>
+                                <p>With our innovative dynamic graph plots, we monitor online interactions in real-time</p>    
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="table-div"> <div class="services-elements" id="chrome-ext">
+                            <svg style="height: 80px;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959v0a.64.64 0 01-.657.643 48.39 48.39 0 01-4.163-.3c.186 1.613.293 3.25.315 4.907a.656.656 0 01-.658.663v0c-.355 0-.676-.186-.959-.401a1.647 1.647 0 00-1.003-.349c-1.036 0-1.875 1.007-1.875 2.25s.84 2.25 1.875 2.25c.369 0 .713-.128 1.003-.349.283-.215.604-.401.959-.401v0c.31 0 .555.26.532.57a48.039 48.039 0 01-.642 5.056c1.518.19 3.058.309 4.616.354a.64.64 0 00.657-.643v0c0-.355-.186-.676-.401-.959a1.647 1.647 0 01-.349-1.003c0-1.035 1.008-1.875 2.25-1.875 1.243 0 2.25.84 2.25 1.875 0 .369-.128.713-.349 1.003-.215.283-.4.604-.4.959v0c0 .333.277.599.61.58a48.1 48.1 0 005.427-.63 48.05 48.05 0 00.582-4.717.532.532 0 00-.533-.57v0c-.355 0-.676.186-.959.401-.29.221-.634.349-1.003.349-1.035 0-1.875-1.007-1.875-2.25s.84-2.25 1.875-2.25c.37 0 .713.128 1.003.349.283.215.604.401.96.401v0a.656.656 0 00.658-.663 48.422 48.422 0 00-.37-5.36c-1.886.342-3.81.574-5.766.689a.578.578 0 01-.61-.58v0z" />
+                            </svg>
+                            <div class="services-text">
+                                <h2>Chrome Extension</h2>
+                                <p>Our innovative technology, now at your fingertips. Experience our service with a convenient Chrome extension</p>    
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="table-div">
+                            <div class="col-md-4">
+                                <div class="table-div"> <div class="services-elements" id="chrome-ext"><br><br><br>
+                                    <div class="services-text">
+                                        <h2>User-Centric Approach</h2>
+                                        <p>We prioritize your safety and trust above all else. Our user-driven reporting system and dynamic graph plotting put you in control, allowing you to actively contribute to a safer online community</p>
+                                    </p>    
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="table-div">
+                            <div class="col-md-4">
+                                <div class="table-div"> <div class="services-elements" id="chrome-ext"><br><br><br>
+                                    <div class="services-text">
+                                        <h2>Transparency and Accountability</h2>
+                                        <p>We believe in transparency and accountability in all our actions. Our commitment to these values extends to our processes, policies, and interactions with our users</p>
+                                    </p>    
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="table-div">
+                            <div class="col-md-4">
+                                <div class="table-div"> <div class="services-elements" id="chrome-ext"><br><br><br>
+                                    <div class="services-text">
+                                        <h2>Happy Customers</h2>
+                                        <p>We don't just measure our success by the number of fake profiles detected or reports filed; we measure it by the smiles and testimonials of our happy customers</p>
+                                    </p>    
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -145,22 +278,22 @@
                 <div class="about-txt-img">
                     <img class="about-image" src="./static/about-img.png" alt="about-image">
                     <div class="about-text">
-                        <h2 class="about-head   ">About us</h2>
-                        <p class="about-para">Founded by a team of passionate tech enthusiasts, we are dedicated to creating a safer and more trustworthy digital world for you. <br>
-                            Our mission is clear : to combat online deception and ensure a secure online environment for users everywhere. We believe in the power of technology to protect, empower, and connect individuals, and we're committed to making a positive impact in the digital landscape.
-                            <br>
-                            We invite you to join us in our mission of cultivating trust in the digital world. Together, we can create a safer, more authentic online space for everyone. Explore our services, learn more about our technology, and take control of your online experience with Social Secure.
-                            <br>
+                        <h2 class="about-head">About us</h2>
+                        <p class="about-para">Founded by a team of passionate tech enthusiasts, we are dedicated to creating a safer and more trustworthy digital world for you. <br><br>
+                            <b>Our mission is clear :</b> To combat online deception and ensure a secure online environment for users everywhere. We believe in the power of technology to protect, empower, and connect individuals, and we're committed to making a positive impact in the digital landscape.
+                            <br><br>
+                            We invite you to join us in our mission of cultivating trust in the digital world. Together, we can create a safer, more authentic online space for everyone. Take control of your online experience with Social Secure.
+                            <br><br>
                         </p>
                     </div>
                 </div>
-                <div class="goBack">
+                <!-- <div class="goBack">
                     <a href="#home">
                     <svg enable-background="new 0 0 32 32" height="32px" id="Layer_1" version="1.1" viewBox="0 0 32 32" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M18.221,7.206l9.585,9.585c0.879,0.879,0.879,2.317,0,3.195l-0.8,0.801c-0.877,0.878-2.316,0.878-3.194,0  l-7.315-7.315l-7.315,7.315c-0.878,0.878-2.317,0.878-3.194,0l-0.8-0.801c-0.879-0.878-0.879-2.316,0-3.195l9.587-9.585  c0.471-0.472,1.103-0.682,1.723-0.647C17.115,6.524,17.748,6.734,18.221,7.206z" fill="#16A6E9ff"/></svg>
                     </a>
-                </div>
+                </div> -->
             </div>
-            <footer>
+            <footer style>
                 <div class="footer-sections">
                     <h1>Contact Us</h1>
                     <ul>
@@ -178,6 +311,11 @@
                     </p>
                 </div>
             </footer>
+            <div class="goBack" style="position: absolute; bottom: -2250px;">
+                <a href="#home">
+                <svg enable-background="new 0 0 32 32" height="32px" id="Layer_1" version="1.1" viewBox="0 0 32 32" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M18.221,7.206l9.585,9.585c0.879,0.879,0.879,2.317,0,3.195l-0.8,0.801c-0.877,0.878-2.316,0.878-3.194,0  l-7.315-7.315l-7.315,7.315c-0.878,0.878-2.317,0.878-3.194,0l-0.8-0.801c-0.879-0.878-0.879-2.316,0-3.195l9.587-9.585  c0.471-0.472,1.103-0.682,1.723-0.647C17.115,6.524,17.748,6.734,18.221,7.206z" fill="#16A6E9ff"/></svg>
+                </a>
+            </div>
         </div>
         
         <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
