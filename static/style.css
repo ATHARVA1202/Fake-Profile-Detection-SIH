@@ -24,7 +24,7 @@ body{
 	height: 100vh;
 }
 
-nav{
+/* nav{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -49,7 +49,9 @@ nav ul li:hover{
     color: #FBFBFEff;
     border-radius: 5px;
     transition: 0.5s ease-in-out;
-}
+} */
+
+
 
 .getStarted{
     width: 400px;
@@ -267,8 +269,6 @@ nav ul li:hover{
     0 0 151px #0fa;
     transition: 5s ease-in-out;
 }
-
-
 
 .options-text{
     text-align: center;
